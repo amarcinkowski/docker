@@ -1,12 +1,12 @@
 FROM phusion/baseimage
 MAINTAINER Andrzej Marcinkowski "andrzej.marcinkowski@gmail.com"
 
+ARG GITHUB_OAUTH_TOKEN
 #ENV HOME /root
 
 # enable ssh
-
-RUN rm -f /etc/service/sshd/down
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+#RUN rm -f /etc/service/sshd/down
+#RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -43,17 +43,13 @@ RUN apt-get update
 
 # Clean up APT when done.
 
-#RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 RUN apt-get install -y git
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 RUN git clone https://github.com/hospitalhub/hospitalpage
 
-RUN echo ${TOKEN}
-RUN /bin/bash -c "echo \"x${TOKEN}x\""
 RUN /bin/bash -c "sudo rm -rf /var/www; ln -s /hospitalpage /var/www"
-RUN /bin/bash -c "source /hospitalpage/resources/.env.bash"
-#RUN /bin/bash -c "source /hospitalpage/scripts/install-server.sh"
-#RUN /bin/bash -c "source hospitalpage/scripts/install-dependencies.sh $GITHUB_OAUTH_TOKEN"
+RUN /bin/bash -c "cd /hospitalpage && source resources/.env.bash && source scripts/install-server.sh && source scripts/install-dependencies.sh $GITHUB_OAUTH_TOKEN"
 #RUN /bin/bash -c "source /hospitalpage/scripts/install-wp-cli.sh"
 #RUN /bin/bash -c "source hospitalpage/scripts/install-wp-all.sh"
 #RUN /bin/bash -c "source hospitalpage/scripts/install-db.sh"
