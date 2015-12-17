@@ -12,12 +12,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     d.build_dir = "."
     d.build_args = ["--build-arg", "GITHUB_OAUTH_TOKEN=" + ENV['GITHUB_OAUTH_TOKEN'] ]
     d.has_ssh = true
-    d.volumes = ["/vagrant:/vagrant"]
+    #d.volumes = ["/va:grant/"]
     d.ports = ["80:80"]
     d.env = {
 	'TOKEN' => "zxcv"
     }
-    args = "-v /vagrant_data:/vagrant_data"
+    args = "-v .:/data"
   end
   config.ssh.port = 22
 end
