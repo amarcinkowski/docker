@@ -2,27 +2,27 @@ FROM phusion/baseimage
 MAINTAINER Andrzej Marcinkowski "andrzej.marcinkowski@gmail.com"
 
 ARG GITHUB_OAUTH_TOKEN
-ENV HOME /root
 CMD ["/sbin/my_init"]
 
-RUN apt-get update
+#ENV HOME /root
 
-RUN useradd --create-home -s /bin/bash vagrant
+#RUN apt-get update
+
+#RUN useradd --create-home -s /bin/bash vagrant
 
 # Enable passwordless sudo for the "vagrant" user
-RUN mkdir -p /etc/sudoers.d
-RUN install -b -m 0440 /dev/null /etc/sudoers.d/vagrant
-RUN echo 'vagrant ALL=NOPASSWD: ALL' >> /etc/sudoers.d/vagrant
+#RUN mkdir -p /etc/sudoers.d
+#RUN install -b -m 0440 /dev/null /etc/sudoers.d/vagrant
+#RUN echo 'vagrant ALL=NOPASSWD: ALL' >> /etc/sudoers.d/vagrant
+
+#USER vagrant
+#WORKDIR /home/vagrant
+
+#RUN apt-get install -y git
+#RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-RUN apt-get install -y git
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-USER vagrant
-WORKDIR /home/vagrant
-VOLUME ./repo_$(date YmdHs)
-
-RUN git clone https://github.com/hospitalhub/hospitalpage
+#RUN git clone https://github.com/hospitalhub/hospitalpage
 
 #RUN /bin/bash -c "sudo rm -rf /var/www; ln -s /var/vagrant/hospitalpage /var/www"
 #RUN /bin/bash -c "cd hospitalpage && source resources/.env.bash && source scripts/install-server.sh"
