@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "docker" do |d|
     d.build_dir = "."
-    d.build_args = ["--build-arg", "GITHUB_OAUTH_TOKEN=" + ENV['GITHUB_OAUTH_TOKEN'], "-v /vagrant:/vagrant"] 
+    d.build_args = [ "--build-arg", "GITHUB_OAUTH_TOKEN=" + ENV['GITHUB_OAUTH_TOKEN'] + " DOCKER=true" ] 
     #d.has_ssh = true
     d.ports = ["80:80"]
     d.env = {

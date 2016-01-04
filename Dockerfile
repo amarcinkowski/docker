@@ -2,6 +2,7 @@ FROM phusion/baseimage
 MAINTAINER Andrzej Marcinkowski "andrzej.marcinkowski@gmail.com"
 
 ARG GITHUB_OAUTH_TOKEN
+ARG DOCKER
 
 RUN apt-get update
 RUN apt-get install -y git
